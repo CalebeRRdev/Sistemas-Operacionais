@@ -68,7 +68,35 @@ posicoes = new int[quantidade_sapos];
 // Cria as threads para simular a corrida dos sapos
 thread* threads = new thread[quantidade_sapos];
 for (int i = 0; i < quantidade_sapos; i++) {
-    threads[i] = thread(corrida, i);
+    void corrida(int id);
+
+    int main() {
+        // ...
+        thread* threads = new thread[quantidade_sapos];
+        for (int i = 0; i < quantidade_sapos; i++) {
+            threads[i] = thread(corrida, i);
+        }
+        // ...
+        // Aguarda o término da corrida de todos os sapos
+        for (int i = 0; i < quantidade_sapos; i++) {
+            threads[i].join();
+        }
+        // Encontra o sapo vencedor
+        int vencedor = 0;
+        for (int i = 0; i < quantidade_sapos; i++) {
+            if (posicoes[i] >= distancia_maxima) {
+                vencedor = i;
+            }
+        }
+        // Imprime o número do sapo vencedor
+        cout << "\n\tO sapo vencedor é o número " << vencedor << endl;
+        // Libera a memória alocada para as variáveis
+        delete[] posicoes;
+        delete[] threads;
+        return 0;
+    }
+
+
 }
 
 // Aguarda o término da corrida de todos os sapos
